@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">IKPDM-Studievoortgang</string>
+    <string name="empty_list_text">Lijst is leeg</string>
+    <string name="add_record">Toevoegen</string>
+    <string name="enter_module">Module Naam</string>
+    <string name="enter_cijfer">Cijfer</string>
+    <string name="enter_ecs">ECS</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_delete">Verwijderen</string>
+    <string name="title_activity_login">Inloggen</string>
+
+
+</resources>

@@ -47,7 +47,7 @@ public class ToevoegenVak extends Activity implements View.OnClickListener {
         dbManager.open();
         addTodoBtn.setOnClickListener(this);
     }
-
+    //test
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

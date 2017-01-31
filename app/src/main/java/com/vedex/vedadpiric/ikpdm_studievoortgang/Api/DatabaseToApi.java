@@ -22,7 +22,7 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class DatabaseToApi {
 
-    private void insertVak(final String moduleNaam,final int ecs, final double cijfer,
+    public void insertVak(final String moduleNaam,final int ecs, final double cijfer,
                               final String student_nummer) {
         String tag_string_req = "req_register";
 
@@ -60,14 +60,14 @@ public class DatabaseToApi {
         };
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
-    private void update(final String moduleNaam,final int ecs, final double cijfer,
+    public void update(final String moduleNaam,final int ecs, final double cijfer,
                            final String student_nummer) {
         String tag_string_req = "req_register";
 
 
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                Appconfig.URL_INSERT, new Response.Listener<String>() {
+                Appconfig.URL_UPDATE, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -91,6 +91,42 @@ public class DatabaseToApi {
                 params.put("modulenaam", moduleNaam);
                 params.put("ecs", String.valueOf(ecs));
                 params.put("cijfer", String.valueOf(cijfer));
+
+                return params;
+            }
+
+        };
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public void Delete(final String student_nummer) {
+        String tag_string_req = "req_register";
+
+
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Appconfig.URL_UPDATE, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Register Response: " + response.toString());
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Registration Error: " + error.getMessage());
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("student_nummer", student_nummer);
+
 
                 return params;
             }

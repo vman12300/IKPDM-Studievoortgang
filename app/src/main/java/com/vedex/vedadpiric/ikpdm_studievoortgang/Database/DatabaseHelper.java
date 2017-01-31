@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String DB_NAME = "STUDIEVOORTGANG.DB";
 
     // database version
-    static final int DB_VERSION = 14;
+    static final int DB_VERSION = 15;
 
     // Creating table query
     private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + _ID

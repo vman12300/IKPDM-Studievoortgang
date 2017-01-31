@@ -10,6 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.vedex.vedadpiric.ikpdm_studievoortgang.Api.DatabaseToApi;
 import com.vedex.vedadpiric.ikpdm_studievoortgang.Model.SchoolVaken;
 import com.vedex.vedadpiric.ikpdm_studievoortgang.Model.Student;
 import com.vedex.vedadpiric.ikpdm_studievoortgang.SignupActivity;
@@ -29,6 +30,7 @@ public class DBManeger {
         public DBManeger(Context c) {
             context = c;
         }
+        private DatabaseToApi dbToapi = new DatabaseToApi();
 
         public DBManeger open() throws SQLException {
             dbHelper = new DatabaseHelper(context);
@@ -47,6 +49,7 @@ public class DBManeger {
             contentValue.put(DatabaseHelper.CIJFER, cijfer);
             contentValue.put(DatabaseHelper.ECS, ecs);
             database.insert(DatabaseHelper.TABLE_NAME, null, contentValue);
+            dbToapi.insertVak(modulenaam,ecs,cijfer,st_nummer);
         }
 
         public Cursor fetch(String st_nummer) {
@@ -63,13 +66,15 @@ public class DBManeger {
 
         }
         public int update(String st_nummer,long _id, String modulenaam, double cijfer ,int ecs) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(DatabaseHelper.MODULENAAM, modulenaam);
-            contentValues.put(DatabaseHelper.CIJFER, cijfer);
-            contentValues.put(DatabaseHelper.ECS, ecs);
-            int i = database.update(DatabaseHelper.TABLE_NAME, contentValues, DatabaseHelper.STUDENT_NUMMER + " = " + st_nummer, null);
-            return i;
-        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.MODULENAAM, modulenaam);
+        contentValues.put(DatabaseHelper.CIJFER, cijfer);
+        contentValues.put(DatabaseHelper.ECS, ecs);
+        int i = database.update(DatabaseHelper.TABLE_NAME, contentValues, DatabaseHelper._ID + " = " + _id, null);
+        dbToapi.update(modulenaam,ecs,cijfer,st_nummer);
+        return i;
+    }
+
 
         public void delete(long _id) {
             database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper._ID + "=" + _id, null);
@@ -81,6 +86,7 @@ public class DBManeger {
             {
             return cur.getInt(0);
             }
+             dbToapi.Delete(st_nummer);
              return cur.getInt(0);
         }
 }
